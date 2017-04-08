@@ -5,7 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AbsoluteLayout;
@@ -21,33 +21,35 @@ import be.stip.soundboard.R;
 import be.stip.soundboard.databinding.ButtonsViewBinding;
 import be.stip.soundboard.models.Sound;
 import be.stip.soundboard.viewmodels.ButtonsViewModel;
+import stannieman.mvvm.ViewBase;
+
+//import be.stip.soundboard.BR;
+
+//import be.stip.soundboard.databinding.ButtonsViewBinding;
 
 
-public class ButtonsView extends AppCompatActivity {
-
+public class ButtonsView extends ViewBase<ButtonsViewModel> {
     @Inject
-    public ButtonsViewModel viewModel;
+    Context context;
 
-    @Inject
-    public Context context;
+    public ButtonsView() {
+        App.getAppComponent().inject(this);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable  Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        App.getComponent().inject(this);
-        ButtonsViewBinding binding = DataBindingUtil.setContentView(this, R.layout.buttons_view);
-        binding.setViewModel(viewModel);
+        ((ButtonsViewBinding) DataBindingUtil.setContentView(this, R.layout.buttons_view)).setViewModel(getViewModel());
 
         final AbsoluteLayout buttonsGrid = (AbsoluteLayout)findViewById(R.id.buttonsGrid);
-        createButtons(buttonsGrid, viewModel.getSounds());
 
-        viewModel.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        getViewModel().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
                 switch(i) {
                     case BR.sounds:
-                        createButtons(buttonsGrid, viewModel.getSounds());
+                        createButtons(buttonsGrid, getViewModel().getSounds());
                         break;
                 }
             }
@@ -55,7 +57,6 @@ public class ButtonsView extends AppCompatActivity {
     }
 
     private void createButtons(AbsoluteLayout buttonsGrid, List<Sound> sounds) {
-
         buttonsGrid.removeAllViews();
 
         int size = getWindowWidth() / 2;
@@ -90,7 +91,7 @@ public class ButtonsView extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.playSound(sound);
+                getViewModel().playSound(sound);
             }
         });
 
