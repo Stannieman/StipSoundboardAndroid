@@ -1,13 +1,13 @@
 package be.stip.soundboard.helpers;
 
+import javax.inject.Singleton;
+
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 @Module
-public class HelpersModule {
-
-    @Provides
-    public ISoundHelper provideISoundHelper() {
-        return new SoundHelper();
-    }
+public abstract class HelpersModule {
+    @Singleton
+    @Binds
+    public abstract ISoundHelper bindISoundHelper(SoundHelper soundHelper);
 }
