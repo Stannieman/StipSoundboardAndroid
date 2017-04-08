@@ -9,41 +9,30 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
 
+import stannieman.commonservices.models.IHasDataAndSuccessState;
+import stannieman.commonservices.models.IHasSuccessState;
+import stannieman.commonservices.models.ServiceResult;
+
 public class SoundPlayService implements ISoundPlayService {
     private static final String MP3_EXTENSION = ".mp3";
 
-    private IAssetService assetService;
+    @Inject
+    public IAssetService assetService;
 
     private MediaPlayer player;
     private Lock playerLock = new ReentrantLock();
 
     @Inject
-    public SoundPlayService(IAssetService assetService){
-        this.assetService = assetService;
+    public SoundPlayService(){
         player = new MediaPlayer();
     }
 
     @Override
-    public ServiceResult playSound(String soundName) {
-        try {
-            return new PlaySoundAsyncTask(null, player, playerLock).execute(soundName).get();
-        }
-        catch (Exception e) {
-            return new ServiceResult(false);
-        }
+    public void playSoundAsync(String soundName, IPlaySoundAsyncCallback callback) {
+        new PlaySoundAsyncTask(callback, player, playerLock).execute(soundName);
     }
 
-    @Override
-    public ServiceResult playSoundAsync(String soundName, IPlaySoundAsyncCallback callback) {
-        try{
-            return new PlaySoundAsyncTask(callback, player, playerLock).execute(soundName).get();
-        }
-        catch (Exception e){
-            return new ServiceResult(false);
-        }
-    }
-
-    private class PlaySoundAsyncTask extends AsyncTask<String, Void, ServiceResult> implements MediaPlayer.OnCompletionListener {
+    private class PlaySoundAsyncTask extends AsyncTask<String, Void, IHasSuccessState> implements MediaPlayer.OnCompletionListener {
         private IPlaySoundAsyncCallback callback;
         private MediaPlayer player;
         private Lock playerLock;
@@ -57,13 +46,13 @@ public class SoundPlayService implements ISoundPlayService {
         }
 
         @Override
-        protected ServiceResult doInBackground(String... params) {
-            ServiceResult<AssetFileDescriptor> result = assetService.getFileDescriptorForAsset(params[0].concat(MP3_EXTENSION));
+        protected IHasSuccessState doInBackground(String... params) {
+            IHasDataAndSuccessState<AssetFileDescriptor> result = assetService.getFileDescriptorForAsset(params[0].concat(MP3_EXTENSION));
 
-            if (!result.isSuccessful()) {
-                return new ServiceResult(false);
+            if (!result.isSuccess()) {
+                return new ServiceResult<>(SoundServiceResultCodes.CannotPlaySound);
             }
-            AssetFileDescriptor fd = result.getResponse();
+            AssetFileDescriptor fd = result.getData();
 
             playerLock.lock();
             if (player.isPlaying()) {
@@ -75,9 +64,9 @@ public class SoundPlayService implements ISoundPlayService {
                 player.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                 player.prepare();
                 player.start();
-                return new ServiceResult(true);
+                return new ServiceResult();
             } catch (Exception e) {
-                return new ServiceResult(false, e.getMessage());
+                return new ServiceResult<>(SoundServiceResultCodes.CannotPlaySound);
             } finally {
                 playerLock.unlock();
             }
