@@ -1,19 +1,17 @@
 package be.stip.soundboard.services;
 
-import android.content.Context;
+import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 @Module
-public class ServicesModule {
-    @Provides
-    public IAssetService provideIAssetService(Context context) {
-        return new AssetService(context);
-    }
+public abstract class ServicesModule {
+    @Singleton
+    @Binds
+    public abstract IAssetService bindIAssetService(AssetService assetService);
 
-    @Provides
-    public ISoundPlayService provideISoundPlayService(IAssetService assetService) {
-        return new SoundPlayService(assetService);
-    }
+    @Singleton
+    @Binds
+    public abstract ISoundPlayService bindISoundPlayService(SoundPlayService soundPlayService);
 }

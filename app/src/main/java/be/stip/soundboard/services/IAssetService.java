@@ -2,7 +2,8 @@ package be.stip.soundboard.services;
 
 import android.content.res.AssetFileDescriptor;
 
-public interface IAssetService {
+import stannieman.commonservices.models.IHasDataAndSuccessState;
 
-    ServiceResult<AssetFileDescriptor> getFileDescriptorForAsset(String filePath);
+public interface IAssetService {
+    IHasDataAndSuccessState<AssetFileDescriptor> getFileDescriptorForAsset(String filePath);
 }
