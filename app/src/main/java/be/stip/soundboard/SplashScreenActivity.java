@@ -1,18 +1,27 @@
 package be.stip.soundboard;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import javax.inject.Inject;
+
 import be.stip.soundboard.views.ButtonsView;
+import stannieman.mvvm.navigation.INavigationService;
 
 public class SplashScreenActivity extends AppCompatActivity {
+
+    @Inject
+    INavigationService navigationService;
+
+    public SplashScreenActivity() {
+        App.getAppComponent().inject(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, ButtonsView.class);
-        startActivity(intent);
+        navigationService.navigateTo(ButtonsView.class);
         finish();
     }
 

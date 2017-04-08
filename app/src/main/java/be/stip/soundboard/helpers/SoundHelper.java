@@ -3,9 +3,14 @@ package be.stip.soundboard.helpers;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import be.stip.soundboard.models.Sound;
 
 public class SoundHelper implements ISoundHelper {
+
+    @Inject
+    public SoundHelper() {}
 
     public List<Sound> getSounds() {
         List<Sound> sounds = new LinkedList<Sound>();
@@ -23,7 +28,9 @@ public class SoundHelper implements ISoundHelper {
         sounds.add(new Sound("Pussycat", "pussycat"));
         sounds.add(new Sound("Stannie is porno", "stannieIsPorno"));
         sounds.add(new Sound("De miekes", "deMiekes"));
-
+        sounds.add(new Sound("Zwijgeeeeuh", "zwijgeeeeuh"));
+        sounds.add(new Sound("Annalisa leren", "annalisaLeren"));
+        sounds.add(new Sound("Vlieger", "vlieger"));
         return sounds;
     }
 }
