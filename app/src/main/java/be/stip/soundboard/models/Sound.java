@@ -10,10 +10,6 @@ public class Sound {
         return name;
     }
 
-    //endregion
-
-    //region FileName
-
     private String fileName;
 
     public String getFileName() {
