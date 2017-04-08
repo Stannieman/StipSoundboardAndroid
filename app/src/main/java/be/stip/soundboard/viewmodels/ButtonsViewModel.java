@@ -1,18 +1,22 @@
 package be.stip.soundboard.viewmodels;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import be.stip.soundboard.BR;
 import be.stip.soundboard.helpers.ISoundHelper;
 import be.stip.soundboard.models.Sound;
 import be.stip.soundboard.services.ISoundPlayService;
+import stannieman.mvvm.ViewModelBase;
 
-public class ButtonsViewModel extends BaseObservable {
-    private ISoundPlayService soundPlayService;
+public class ButtonsViewModel extends ViewModelBase {
+    @Inject
+    ISoundHelper soundHelper;
+    @Inject
+    ISoundPlayService soundPlayService;
 
     private List<Sound> sounds;
 
@@ -24,18 +28,19 @@ public class ButtonsViewModel extends BaseObservable {
     public void setSounds(List<Sound> sounds){
         if (this.sounds != sounds){
             this.sounds = sounds;
-            //notifyPropertyChanged(BR.sounds);
+            notifyPropertyChanged(BR.sounds);
         }
     }
 
     @Inject
-    public ButtonsViewModel(ISoundHelper soundHelper, ISoundPlayService soundPlayService){
-        this.soundPlayService = soundPlayService;
+    public ButtonsViewModel() {}
 
+    @Override
+    protected void onFirstStart() {
         setSounds(soundHelper.getSounds());
     }
 
     public void playSound(Sound sound) {
-        soundPlayService.playSound(sound.getFileName());
+        soundPlayService.playSoundAsync(sound.getFileName(), null);
     }
 }

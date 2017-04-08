@@ -5,21 +5,23 @@ import android.content.res.AssetFileDescriptor;
 
 import javax.inject.Inject;
 
-public class AssetService implements IAssetService {
+import stannieman.commonservices.models.DataServiceResult;
+import stannieman.commonservices.models.GeneralResultCodes;
+import stannieman.commonservices.models.IHasDataAndSuccessState;
 
-    private Context context;
+public class AssetService implements IAssetService {
+    @Inject
+    Context context;
 
     @Inject
-    public AssetService(Context context){
-        this.context = context;
-    }
+    public AssetService() {}
 
-    public ServiceResult<AssetFileDescriptor> getFileDescriptorForAsset(String filePath){
+    public IHasDataAndSuccessState<AssetFileDescriptor> getFileDescriptorForAsset(String filePath){
         try {
-            return new ServiceResult<>(context.getAssets().openFd(filePath));
+            return new DataServiceResult<>(context.getAssets().openFd(filePath), GeneralResultCodes.OK);
         }
         catch (Exception e) {
-            return new ServiceResult<>(false);
+            return new DataServiceResult<>(AssetServiceResultCodes.CannotGetAsset);
         }
     }
 }
