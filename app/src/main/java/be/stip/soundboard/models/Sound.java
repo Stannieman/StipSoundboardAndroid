@@ -16,10 +16,17 @@ public class Sound {
         return fileName;
     }
 
+    private char id;
+
+    public char getId() {
+        return id;
+    }
+
     //endregion
 
-    public Sound(String name, String fileName) {
+    public Sound(String name, String fileName, char id) {
         this.name = name;
         this.fileName = fileName;
+        this.id = id;
     }
 }
