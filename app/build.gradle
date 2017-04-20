@@ -7,8 +7,8 @@ android {
         applicationId "be.stip.soundboard"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 5
-        versionName "2.0.2.0"
+        versionCode 7
+        versionName "2.0.4.0"
         multiDexEnabled true
     }
     buildTypes {
@@ -28,5 +28,5 @@ dependencies {
     compile('be.stannieman:commonservices:1.0.2.0')
     compile('be.stannieman:mvvm:1.0.4')
     annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
-    annotationProcessor 'com.android.databinding:compiler:2.3.0'
+    annotationProcessor 'com.android.databinding:compiler:2.3.1'
 }
