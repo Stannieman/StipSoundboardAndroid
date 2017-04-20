@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import be.stip.soundboard.helpers.HelpersModule;
 import be.stip.soundboard.services.ServicesModule;
 import be.stip.soundboard.views.ButtonsView;
+import be.stip.soundboard.views.EasterEggView;
 import dagger.Component;
 import stannieman.mvvm.MvvmModule;
 
@@ -13,4 +14,5 @@ import stannieman.mvvm.MvvmModule;
 public interface IAppComponent {
     void inject(SplashScreenActivity splashScreenActivity);
     void inject(ButtonsView buttonsView);
+    void inject(EasterEggView easterEggView);
 }
