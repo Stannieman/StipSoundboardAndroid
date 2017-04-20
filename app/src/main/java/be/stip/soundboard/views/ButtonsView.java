@@ -23,11 +23,6 @@ import be.stip.soundboard.models.Sound;
 import be.stip.soundboard.viewmodels.ButtonsViewModel;
 import stannieman.mvvm.ViewBase;
 
-//import be.stip.soundboard.BR;
-
-//import be.stip.soundboard.databinding.ButtonsViewBinding;
-
-
 public class ButtonsView extends ViewBase<ButtonsViewModel> {
     @Inject
     Context context;
