@@ -15,22 +15,22 @@ public class SoundHelper implements ISoundHelper {
     public List<Sound> getSounds() {
         List<Sound> sounds = new LinkedList<Sound>();
 
-        sounds.add(new Sound("Doe is normaal!", "doeIsNormaal"));
-        sounds.add(new Sound("Heey daar is die lens jom!", "heeyDaarIsDieLensJom"));
-        sounds.add(new Sound("Flipse papegaai", "flipsePapegaai"));
-        sounds.add(new Sound("Ik zen hiejelemaal eweg", "ikZenHiejelemaalEweg"));
-        sounds.add(new Sound("Flipse awel jom…", "flipseAwelJom"));
-        sounds.add(new Sound("Hey matekes", "heyMatekes"));
-        sounds.add(new Sound("Geflitsth", "geflitsth"));
-        sounds.add(new Sound("Kop tegen schilderij", "kopTegenSchilderij"));
-        sounds.add(new Sound("Ozze papa hoert da nie", "ozzePapaHoertDaNie"));
-        sounds.add(new Sound("Papaa!", "papaa"));
-        sounds.add(new Sound("Pussycat", "pussycat"));
-        sounds.add(new Sound("Stannie is porno", "stannieIsPorno"));
-        sounds.add(new Sound("De miekes", "deMiekes"));
-        sounds.add(new Sound("Zwijgeeeeuh", "zwijgeeeeuh"));
-        sounds.add(new Sound("Annalisa leren", "annalisaLeren"));
-        sounds.add(new Sound("Vlieger", "vlieger"));
+        sounds.add(new Sound("Doe is normaal!", "doeIsNormaal", 'a'));
+        sounds.add(new Sound("Heey daar is die lens jom!", "heeyDaarIsDieLensJom", 'b'));
+        sounds.add(new Sound("Flipse papegaai", "flipsePapegaai", 'c'));
+        sounds.add(new Sound("Ik zen hiejelemaal eweg", "ikZenHiejelemaalEweg", 'd'));
+        sounds.add(new Sound("Flipse awel jom…", "flipseAwelJom", 'e'));
+        sounds.add(new Sound("Hey matekes", "heyMatekes", 'f'));
+        sounds.add(new Sound("Geflitsth", "geflitsth", 'g'));
+        sounds.add(new Sound("Kop tegen schilderij", "kopTegenSchilderij", 'h'));
+        sounds.add(new Sound("Ozze papa hoert da nie", "ozzePapaHoertDaNie", 'i'));
+        sounds.add(new Sound("Papaa!", "papaa", 'j'));
+        sounds.add(new Sound("Pussycat", "pussycat", 'k'));
+        sounds.add(new Sound("Stannie is porno", "stannieIsPorno", 'l'));
+        sounds.add(new Sound("De miekes", "deMiekes", 'm'));
+        sounds.add(new Sound("Zwijgeeeeuh", "zwijgeeeeuh", 'n'));
+        sounds.add(new Sound("Annalisa leren", "annalisaLeren", 'o'));
+        sounds.add(new Sound("Vlieger", "vlieger", 'p'));
         return sounds;
     }
 }
